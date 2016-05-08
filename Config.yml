@@ -9,8 +9,8 @@ host : !!str Put Host Here
 # Put Your Port Here that you would like to connect to
 port : !!str Port
 
-# Put your Username Here.
-nickname : !!str Username
+# Put your Username Here. (Coming Soon!)
+#nickname : !!str Username
 
 # Put your Password Here. (Coming Soon!)
 #Password : !!str Password

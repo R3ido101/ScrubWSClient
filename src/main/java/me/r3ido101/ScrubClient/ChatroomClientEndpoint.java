@@ -1,5 +1,6 @@
 package me.r3ido101.ScrubClient;
 
+import java.awt.*;
 import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -12,7 +13,10 @@ import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.representer.Representer;
 
+import javax.json.*;
 import javax.websocket.ClientEndpoint;
+import javax.websocket.ContainerProvider;
+import javax.websocket.DeploymentException;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
@@ -24,6 +28,7 @@ public class ChatroomClientEndpoint {
     public static org.slf4j.Logger logger	= LoggerFactory.getLogger(ChatroomClientEndpoint.class);
     public static Map<String, Object> conf = null;
     public static File configurationFile	= new File("./Config.yml");
+    private Session session;
 
 
     public static void setupFolders() {
@@ -62,22 +67,25 @@ public class ChatroomClientEndpoint {
         }
     }
 
-    private static String WSCURI = ("Passing this!");
+    private static String host = (String) conf.getOrDefault("Put Host Here", "Put Host Here");
+    private static String port = (String) conf.getOrDefault("port", "port");
+    //private static String nick = (String) conf.getOrDefault("username", "username");
 
-    public ChatroomClientEndpoint() throws URISyntaxException
-    {
+    private static String WSCURI = ("ws://" + host + ":" + port + "/interchat");
+
+    public ChatroomClientEndpoint() throws URISyntaxException, IOException, DeploymentException {
         URI uRI = new URI(WSCURI);
+        ContainerProvider.getWebSocketContainer().connectToServer(this, uRI);
     }
 
     @OnOpen
-    public void processOpen(Session session)
-    {
-
+    public void processOpen(Session session){
+        this.session = session;
     }
 
     @OnMessage
     public void processMessage(String message)
     {
-
+        System.out.println(Json.createReader(new StringReader((message)).read))
     }
 }
