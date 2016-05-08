@@ -1,0 +1,16 @@
+#|==============================================================|
+#|   ScrubClient Websocket Client By R3ido101  V 0.1-Snapshot   |
+#|==============================================================|
+
+
+# Put Your Bot Name Here.
+host : !!str Put Host Here
+
+# Put Your Port Here that you would like to connect to
+port : !!str Port
+
+# Put your Username Here.
+nickname : !!str Username
+
+# Put your Password Here. (Coming Soon!)
+#Password : !!str Password
